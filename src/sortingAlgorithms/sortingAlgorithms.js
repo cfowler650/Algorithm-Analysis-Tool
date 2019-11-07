@@ -6,17 +6,18 @@ export const bubbleSort = (array) => {
     while (!isSorted) {
         isSorted = true;
         for (let i = 0; i < array.length - 1; i++) {
-            var animation = {};
-            animation.comparison = [i, i + 1]
+            const animation = {};
+            animation.comparison = [i, i + 1];
 
             if (array[i] > array[i + 1]) {
+                animation.swap = [i, i + 1];
                 let temp = array[i];
                 array[i] = array[i + 1];
                 array[i + 1] = temp;
                 isSorted = false;
-                animation.swap = [i, i + 1];
 
             }
+
             animations.push(animation);
         }
 
