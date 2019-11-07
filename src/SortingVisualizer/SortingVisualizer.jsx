@@ -19,8 +19,8 @@ export default class SortingVisualizer extends React.Component {
 
     resetArray() {
         const array = [];
-        for (let i = 0; i < 100; i++) {
-            array.push(randomIntFromInterval(5, 100));
+        for (let i = 0; i < 125; i++) {
+            array.push(randomIntFromInterval(5, 200));
         }
         this.setState({ array });
     }
@@ -86,19 +86,25 @@ export default class SortingVisualizer extends React.Component {
         const { array } = this.state;
 
         return (
-            <div className="array-container">
-                {array.map((value, idx) => (
-                    <div
-                        className="array-bar"
-                        key={idx}
-                        style={{ height: `${value}px` }}></div>
-                ))}
-                <button onClick={() => this.resetArray()}>Generate New Array</button>
-                <button onClick={() => this.mergeSort()}>Merge Sort</button>
-                <button onClick={() => this.quickSort()}>Quick Sort</button>
-                <button onClick={() => this.heapSort()}>Heap Sort</button>
-                <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
-                <button onClick={() => this.testSortingAlgorithms()}>Test Sorting Algs</button>
+            <div className="main-content">
+                <div className="array-container">
+                    <div className="bars-container">
+                        {array.map((value, idx) => (
+                            <div
+                                className="array-bar"
+                                key={idx}
+                                style={{ height: `${value}px` }}></div>
+                        ))}
+                    </div>
+                    <div className="btn-group">
+                        <button className="generate-btn" onClick={() => this.resetArray()}>Generate Array</button>
+                        <button className="merge-btn" onClick={() => this.mergeSort()}>Merge Sort</button>
+                        <button className="quick-btn" onClick={() => this.quickSort()}>Quick Sort</button>
+                        <button className="heap-btn" onClick={() => this.heapSort()}>Heap Sort</button>
+                        <button className="generate-btn" onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                        {/* <button onClick={() => this.testSortingAlgorithms()}>Test Sorting Algs</button> */}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -116,8 +122,6 @@ function arraysAreEqual(arrayOne, arrayTwo) {
     for (let i = 0; i < arrayOne.length; i++) {
         if (arrayOne[i] !== arrayTwo[i]) return false;
     }
-
-
 
     return true;
 }
