@@ -15,12 +15,13 @@ export default class SortingVisualizer extends React.Component {
 
     componentDidMount() {
         this.resetArray();
+        // this.testSortingAlgorithms();
     }
 
     resetArray() {
         const array = [];
-        for (let i = 0; i < 125; i++) {
-            array.push(randomIntFromInterval(5, 200));
+        for (let i = 0; i < 100; i++) {
+            array.push(randomIntFromInterval(5, 300));
         }
         this.setState({ array });
     }
@@ -31,7 +32,32 @@ export default class SortingVisualizer extends React.Component {
 
 
     quickSort() {
+        console.log('originalarray', this.state.array)
+        const animations = sortingAlgorithms.quickSort(this.state.array);
+        console.log(animations)
 
+
+        for (let i = 0; i < animations.length; i++) {
+            const { comparison, swap } = animations[i];
+            setTimeout(() => {
+                const arrayBars = document.getElementsByClassName('array-bar');
+                arrayBars[comparison[1]].style.backgroundColor = 'red';
+                arrayBars[comparison[0]].style.backgroundColor = 'red';
+                setTimeout(() => {
+                    arrayBars[comparison[1]].style.backgroundColor = 'turquoise';
+                    arrayBars[comparison[0]].style.backgroundColor = 'turquoise';
+                }, i * 2);
+                if (swap) {
+                    setTimeout(() => {
+                        const tempHeight = arrayBars[comparison[1]].style.height;
+                        arrayBars[comparison[1]].style.height = arrayBars[comparison[0]].style.height
+                        arrayBars[comparison[0]].style.height = tempHeight;
+                    });
+                }
+
+            }, i * 2);
+
+        }
     }
 
 
@@ -42,6 +68,8 @@ export default class SortingVisualizer extends React.Component {
 
     bubbleSort() {
         const animations = sortingAlgorithms.bubbleSort(this.state.array);
+
+        console.log(animations)
 
         for (let i = 0; i < animations.length; i++) {
             const { comparison, swap } = animations[i];
@@ -74,7 +102,7 @@ export default class SortingVisualizer extends React.Component {
                 array.push(randomIntFromInterval(-1000, 1000));
             }
             const javaScriptSortedArray = array.slice().sort((a, b) => a - b);
-            const bubbleSortedArray = sortingAlgorithms.bubbleSort(array.slice());
+            const bubbleSortedArray = sortingAlgorithms.quickSort(array.slice());
             console.log(arraysAreEqual(javaScriptSortedArray, bubbleSortedArray));
         }
     }
