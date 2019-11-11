@@ -144,11 +144,11 @@ export default class SortingVisualizer extends React.Component {
                                 style={{ height: `${value}px` }}></div>
                         ))}
                     </div>
-                    <div className="btn-group">
+                    <div className="btn-group" style={{ justifyContent: "center" }}>
                         <button className="generate-btn" onClick={() => this.resetArray()}>Generate Array</button>
                         <button className="merge-btn" onClick={() => this.mergeSort()}>Merge Sort</button>
                         <button className="quick-btn" onClick={() => this.quickSort()}>Quick Sort</button>
-                        <button className="heap-btn" onClick={() => this.heapSort()}>Heap Sort</button>
+                        {/* <button className="heap-btn" onClick={() => this.heapSort()}>Heap Sort</button> */}
                         <button className="generate-btn" onClick={() => this.bubbleSort()}>Bubble Sort</button>
                         {/* <button onClick={() => this.testSortingAlgorithms()}>Test Sorting Algs</button> */}
                     </div>
