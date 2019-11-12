@@ -1,12 +1,14 @@
 
-export const bubbleSort = (array) => {
-    const animations = [];
+export const bubbleSort = (stateArray) => {
+    let array = stateArray.slice(0);
+
+    let animations = [];
     let isSorted = false;
 
     while (!isSorted) {
         isSorted = true;
         for (let i = 0; i < array.length - 1; i++) {
-            const animation = {};
+            let animation = {};
             animation.comparison = [i, i + 1];
 
             if (array[i] > array[i + 1]) {

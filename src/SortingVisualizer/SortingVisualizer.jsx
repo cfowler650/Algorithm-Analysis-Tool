@@ -7,15 +7,18 @@ import { getMergeSortAnimations } from '../sortingAlgorithms/sortingAlgorithms.j
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             array: [],
             bestTime: null,
             bestSpace: null,
             worstTime: null,
             worstSpace: null,
-            hidden: 'hidden'
+            hidden: 'hidden',
+            isButtonDisabled: false
         }
+
+        this.disableButton = this.disableButton.bind(this);
+        this.mergeSort = this.mergeSort.bind(this);
 
     }
 
@@ -33,6 +36,8 @@ export default class SortingVisualizer extends React.Component {
     }
 
     mergeSort() {
+
+
         this.setState({ ...this.state, bestTime: 'O(nLog(n))', bestSpace: 'n', worstTime: 'O(nLog(n))', worstSpace: 'n', hidden: 'visible' })
         const animations = getMergeSortAnimations(this.state.array);
         for (let i = 0; i < animations.length; i++) {
@@ -93,7 +98,7 @@ export default class SortingVisualizer extends React.Component {
 
 
     bubbleSort() {
-        this.setState({ ...this.state, bestTime: 'O(n)', bestSpace: 'O(1)', worstTime: 'O(n^2)', worstSpace: 'O(1)', hidden: 'visible' })
+        this.setState({ bestTime: 'O(n)', bestSpace: 'O(1)', worstTime: 'O(n^2)', worstSpace: 'O(1)', hidden: 'visible' })
 
         const animations = sortingAlgorithms.bubbleSort(this.state.array);
 
@@ -135,6 +140,28 @@ export default class SortingVisualizer extends React.Component {
         }
     }
 
+    test() {
+        console.log('hello');
+
+        // this.setState({
+        //     isButtonDisabled: true
+        // });
+    }
+
+
+    disableButton(time) {
+        // event.preventDefault();
+        console.log('called')
+
+
+
+        setTimeout(() => this.setState({ isButtonDisabled: false }), time);
+
+        this.setState({ isButtonDisabled: true });
+
+
+
+    }
 
     render() {
         const { array } = this.state;
@@ -153,11 +180,13 @@ export default class SortingVisualizer extends React.Component {
                                 ))}
                             </div>
                             <div className="btn-group" style={{ justifyContent: "center" }}>
-                                <button id="btn" className="generate-btn" onClick={() => this.resetArray()}>Generate Array</button>
-                                <button id="btn" className="merge-btn" onClick={() => this.mergeSort()}>Merge Sort</button>
-                                <button id="btn" className="quick-btn" onClick={() => this.quickSort()}>Quick Sort</button>
+                                <button id="btn" className="btn-style-active generate-btn" onClick={() => { this.resetArray(); this.disableButton(5000); }}>Generate Array</button>
+                                {/* <link href="#" onClick={(event) => { func1(event); func2();}}>Trigger here</link> */}
+
+                                <button id="btn" className={this.state.isButtonDisabled ? 'btn-style-disabled' : 'btn-style-active'} onClick={() => { this.mergeSort(); this.disableButton(5000); }} disabled={this.state.isButtonDisabled} >Merge Sort</button>
+                                <button id="btn" className={this.state.isButtonDisabled ? 'btn-style-disabled' : 'btn-style-active'} onClick={() => { this.quickSort(); this.disableButton(5000) }} disabled={this.state.isButtonDisabled}>Quick Sort</button>
                                 {/* <button className="heap-btn" onClick={() => this.heapSort()}>Heap Sort</button> */}
-                                <button id="btn" className="generate-btn" onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                                <button id="btn" className={this.state.isButtonDisabled ? 'btn-style-disabled' : 'btn-style-active'} onClick={() => { this.bubbleSort(); this.disableButton(17000) }} disabled={this.state.isButtonDisabled}>Bubble Sort</button>
                                 {/* <button onClick={() => this.testSortingAlgorithms()}>Test Sorting Algs</button> */}
                             </div>
                         </div>

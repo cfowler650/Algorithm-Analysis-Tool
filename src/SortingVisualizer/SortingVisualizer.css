@@ -18,6 +18,11 @@
 .bars-container {
 }
 
+.merge-btn-disabled {
+    background-color: "red";
+    color: "red";
+}
+
 .main-content {
     display: flex;
     justify-content: center;
@@ -31,9 +36,21 @@
     display: flex;
 }
 
-button {
+/* button {
     width: 100px;
-    /* height: px; */
+
+    cursor: pointer;
+    background: black;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+} */
+
+.btn-style-active {
+
+
+    width: 100px;
+
     cursor: pointer;
     background: black;
     color: white;
@@ -41,15 +58,24 @@ button {
     font-weight: 600;
 }
 
+.btn-style-disabled {
+    width: 100px;
+
+    cursor: pointer;
+    background: gray;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
 button:hover {
    background: turquoise;
    color: black;
 }
 
-button:focus {
+/* button:focus {
     background: turquoise;
 color: black;
   outline: 0;
 
-}
+} */
 
