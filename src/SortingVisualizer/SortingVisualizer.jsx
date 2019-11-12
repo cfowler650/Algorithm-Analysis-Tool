@@ -9,7 +9,12 @@ export default class SortingVisualizer extends React.Component {
         super(props);
 
         this.state = {
-            array: []
+            array: [],
+            bestTime: null,
+            bestSpace: null,
+            worstTime: null,
+            worstSpace: null,
+            hidden: 'hidden'
         }
 
     }
@@ -28,6 +33,7 @@ export default class SortingVisualizer extends React.Component {
     }
 
     mergeSort() {
+        this.setState({ ...this.state, bestTime: 'O(nLog(n))', bestSpace: 'n', worstTime: 'O(nLog(n))', worstSpace: 'n', hidden: 'visible' })
         const animations = getMergeSortAnimations(this.state.array);
         for (let i = 0; i < animations.length; i++) {
             const arrayBars = document.getElementsByClassName('array-bar');
@@ -52,9 +58,9 @@ export default class SortingVisualizer extends React.Component {
     }
 
     quickSort() {
-        console.log('originalarray', this.state.array)
+        this.setState({ ...this.state, bestTime: 'O(nLog(n))', bestSpace: 'O(Log(n))', worstTime: 'O(n^2)', worstSpace: 'O(Log(n))', hidden: 'visible' })
+
         const animations = sortingAlgorithms.quickSort(this.state.array);
-        console.log(animations)
 
 
         for (let i = 0; i < animations.length; i++) {
@@ -87,6 +93,8 @@ export default class SortingVisualizer extends React.Component {
 
 
     bubbleSort() {
+        this.setState({ ...this.state, bestTime: 'O(n)', bestSpace: 'O(1)', worstTime: 'O(n^2)', worstSpace: 'O(1)', hidden: 'visible' })
+
         const animations = sortingAlgorithms.bubbleSort(this.state.array);
 
         console.log(animations)
@@ -128,32 +136,63 @@ export default class SortingVisualizer extends React.Component {
     }
 
 
-
-
     render() {
         const { array } = this.state;
 
         return (
-            <div className="main-content">
-                <div className="array-container">
-                    <div className="bars-container">
-                        {array.map((value, idx) => (
-                            <div
-                                className="array-bar"
-                                key={idx}
-                                style={{ height: `${value}px` }}></div>
-                        ))}
-                    </div>
-                    <div className="btn-group" style={{ justifyContent: "center" }}>
-                        <button className="generate-btn" onClick={() => this.resetArray()}>Generate Array</button>
-                        <button className="merge-btn" onClick={() => this.mergeSort()}>Merge Sort</button>
-                        <button className="quick-btn" onClick={() => this.quickSort()}>Quick Sort</button>
-                        {/* <button className="heap-btn" onClick={() => this.heapSort()}>Heap Sort</button> */}
-                        <button className="generate-btn" onClick={() => this.bubbleSort()}>Bubble Sort</button>
-                        {/* <button onClick={() => this.testSortingAlgorithms()}>Test Sorting Algs</button> */}
+            <>
+                <div className="main-content" style={{}}>
+                    <div>
+                        <div className="array-container" >
+                            <div className="bars-container">
+                                {array.map((value, idx) => (
+                                    <div
+                                        className="array-bar"
+                                        key={idx}
+                                        style={{ height: `${value}px` }}></div>
+                                ))}
+                            </div>
+                            <div className="btn-group" style={{ justifyContent: "center" }}>
+                                <button id="btn" className="generate-btn" onClick={() => this.resetArray()}>Generate Array</button>
+                                <button id="btn" className="merge-btn" onClick={() => this.mergeSort()}>Merge Sort</button>
+                                <button id="btn" className="quick-btn" onClick={() => this.quickSort()}>Quick Sort</button>
+                                {/* <button className="heap-btn" onClick={() => this.heapSort()}>Heap Sort</button> */}
+                                <button id="btn" className="generate-btn" onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                                {/* <button onClick={() => this.testSortingAlgorithms()}>Test Sorting Algs</button> */}
+                            </div>
+                        </div>
+
+
+
+                        <div className="times-container" style={{ visibility: `${this.state.hidden}`, justifyContent: "center" }}>
+                            <div className="times-div" >
+                                <div><p style={{ color: "white", fontWeight: "500" }}>Worst Case </p></div>
+                                <div style={{}}>
+                                    <p style={{ color: "white", letterSpacing: "2px", fontWeight: "500" }}><a style={{ letterSpacing: 0, margin: '0px', padding: '0px' }}>Time:</a> {this.state.worstTime} </p> </div>
+                                <div style={{}}>
+                                    <p style={{ color: "white", letterSpacing: "2px", fontWeight: "500" }}><a style={{ letterSpacing: 0, margin: '0px', padding: '0px' }}> Space: </a> {this.state.worstSpace}</p>
+                                </div>
+                            </div>
+
+                            <div className="times-div">
+                                <div><p style={{ color: "white", fontWeight: "500" }}>Best Case </p></div>
+                                <div style={{}}>
+                                    <p style={{ color: "white", letterSpacing: "2px", fontWeight: "500" }}><a style={{ letterSpacing: 0, margin: '0px', padding: '0px' }}>Time:</a> {this.state.bestTime} </p> </div>
+                                <div style={{}}>
+                                    <p style={{ color: "white", letterSpacing: "2px", fontWeight: "500" }}><a style={{ letterSpacing: 0, margin: '0px', padding: '0px' }}>Space:</a> {this.state.bestSpace}</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
                     </div>
                 </div>
-            </div>
+
+            </>
         );
     }
 }

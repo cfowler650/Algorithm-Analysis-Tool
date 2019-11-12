@@ -2,3 +2,27 @@
   text-align: center;
 }
 
+
+.times-div {
+    margin-top: 10px;
+    /* padding-right: 100px; */
+    width: 200px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    line-height: 20px;
+
+}
+
+p {
+    padding: 5px 0px;
+}
+
+.times-container {
+    display: flex;
+}
+
+#btn {
+    padding: 5px 5px;
+}
+

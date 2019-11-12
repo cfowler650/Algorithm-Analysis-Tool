@@ -46,3 +46,10 @@ button:hover {
    color: black;
 }
 
+button:focus {
+    background: turquoise;
+color: black;
+  outline: 0;
+
+}
+
